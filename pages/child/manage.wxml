@@ -1,0 +1,106 @@
+<!--manage.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="section-title">子女管理</text>
+    <text class="subtitle">选择或管理您的子女信息</text>
+  </view>
+
+  <!-- 儿童列表 -->
+  <view class="child-list">
+    <block wx:if="{{children.length > 0}}">
+      <view 
+        class="child-item {{currentChildId === item.id ? 'active' : ''}}" 
+        wx:for="{{children}}" 
+        wx:key="id"
+      >
+        <view class="child-main" bindtap="selectChild" data-id="{{item.id}}">
+          <view class="child-avatar">
+            {{item.name.charAt(0)}}
+          </view>
+          <view class="child-info">
+            <view class="child-name">{{item.name}}</view>
+            <view class="child-meta">
+              <text>{{item.age}}岁</text>
+              <text>{{item.gender === 'male' ? '男' : '女'}}</text>
+              <text>余额: ¥{{item.balance.toFixed(2)}}</text>
+            </view>
+          </view>
+          <view class="child-select">
+            <icon wx:if="{{currentChildId === item.id}}" type="success" size="20" color="#4A90E2"/>
+          </view>
+        </view>
+        <view class="child-actions">
+          <button size="mini" type="default" bindtap="editChild" data-id="{{item.id}}">编辑</button>
+          <button size="mini" type="warn" bindtap="deleteChild" data-id="{{item.id}}">删除</button>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-state">
+        <view class="empty-state-icon">👶</view>
+        <view class="empty-state-text">还没有添加子女信息</view>
+        <view class="empty-state-desc">点击下方按钮添加第一个子女</view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 添加子女按钮 -->
+  <button class="add-child-btn" type="primary" bindtap="showAddChildDialog">
+    添加子女
+  </button>
+
+  <!-- 添加子女对话框 -->
+  <view class="dialog-overlay" wx:if="{{showAddChildDialog}}" bindtap="closeAddChildDialog"></view>
+  <view class="dialog" wx:if="{{showAddChildDialog}}">
+    <view class="dialog-header">
+      <text class="dialog-title">添加子女</text>
+      <text class="dialog-close" bindtap="closeAddChildDialog">✕</text>
+    </view>
+    <view class="dialog-content">
+      <view class="form-group">
+        <text class="form-label">姓名</text>
+        <input 
+          class="input" 
+          placeholder="请输入姓名" 
+          value="{{newChild.name}}"
+          bindinput="inputChildInfo"
+          data-field="name"
+        />
+      </view>
+      <view class="form-group">
+        <text class="form-label">年龄</text>
+        <input 
+          class="input" 
+          placeholder="请输入年龄" 
+          type="number"
+          value="{{newChild.age}}"
+          bindinput="inputChildInfo"
+          data-field="age"
+        />
+      </view>
+      <view class="form-group">
+        <text class="form-label">性别</text>
+        <view class="gender-select">
+          <view 
+            class="gender-item {{newChild.gender === 'male' ? 'active' : ''}}" 
+            bindtap="selectGender"
+            data-gender="male"
+          >
+            <text>男</text>
+          </view>
+          <view 
+            class="gender-item {{newChild.gender === 'female' ? 'active' : ''}}" 
+            bindtap="selectGender"
+            data-gender="female"
+          >
+            <text>女</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="dialog-footer">
+      <button class="btn-cancel" type="default" bindtap="closeAddChildDialog">取消</button>
+      <button class="btn-confirm" type="primary" bindtap="addChild">确定</button>
+    </view>
+  </view>
+</view>

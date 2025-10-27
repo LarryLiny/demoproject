@@ -1,0 +1,170 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 儿童信息和切换 -->
+  <view class="child-info" bindtap="switchChild">
+    <text class="child-name">{{currentChild?.name || '未选择'}}</text>
+    <text class="switch-icon">▶</text>
+  </view>
+
+  <!-- 标签页切换 -->
+  <view class="tab-container">
+    <view class="tab-bar">
+      <view 
+        class="tab-item {{activeTab === 'todo' ? 'active' : ''}}" 
+        bindtap="switchTab" 
+        data-tab="todo"
+      >
+        <text class="tab-text">待完成任务</text>
+      </view>
+      <view 
+        class="tab-item {{activeTab === 'completed' ? 'active' : ''}}" 
+        bindtap="switchTab" 
+        data-tab="completed"
+      >
+        <text class="tab-text">已完成任务</text>
+      </view>
+    </view>
+
+    <!-- 待完成任务列表 -->
+    <view class="task-list" wx:if="{{activeTab === 'todo'}}">
+      <!-- 加载状态 -->
+      <view wx:if="{{loading}}" class="loading">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <!-- 任务列表 -->
+      <view wx:elif="{{tasks.length > 0}}">
+        <view class="task-item" wx:for="{{tasks}}" wx:key="id">
+          <view class="task-content">
+            <view class="task-header">
+              <text class="task-title">{{item.title}}</text>
+              <text class="task-reward">+¥{{item.reward}}</text>
+            </view>
+            <text class="task-description" wx:if="{{item.description}}">{{item.description}}</text>
+            <view class="task-footer">
+              <text class="task-deadline">截止: {{item.deadline}}</text>
+              <view class="task-actions">
+                <button class="btn-complete" size="mini" bindtap="completeTask" data-id="{{item.id}}">
+                  完成
+                </button>
+                <button class="btn-delete" size="mini" type="warn" bindtap="deleteTask" data-id="{{item.id}}" data-tab="todo">
+                  删除
+                </button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view wx:else class="empty-state">
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">暂无待完成任务</text>
+      </view>
+    </view>
+
+    <!-- 已完成任务列表 -->
+    <view class="task-list" wx:if="{{activeTab === 'completed'}}">
+      <!-- 加载状态 -->
+      <view wx:if="{{loading}}" class="loading">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+
+      <!-- 任务列表 -->
+      <view wx:elif="{{completedTasks.length > 0}}">
+        <view class="task-item completed" wx:for="{{completedTasks}}" wx:key="id">
+          <view class="task-content">
+            <view class="task-header">
+              <text class="task-title">{{item.title}}</text>
+              <text class="task-reward">+¥{{item.reward}}</text>
+            </view>
+            <text class="task-description" wx:if="{{item.description}}">{{item.description}}</text>
+            <view class="task-footer">
+              <text class="task-complete-time">完成于: {{item.completeTime}}</text>
+              <button class="btn-delete" size="mini" type="warn" bindtap="deleteTask" data-id="{{item.id}}" data-tab="completed">
+                删除
+              </button>
+            </view>
+          </view>
+          <view class="task-check">✓</view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view wx:else class="empty-state">
+        <text class="empty-icon">🏆</text>
+        <text class="empty-text">暂无已完成任务</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加任务按钮 -->
+  <button class="add-task-btn" bindtap="openAddModal" wx:if="{{activeTab === 'todo'}}">
+    <text class="add-icon">+</text>
+  </button>
+
+  <!-- 添加任务对话框 -->
+  <view class="modal-overlay" wx:if="{{showAddModal}}" bindtap="closeAddModal"></view>
+  <view class="modal-content" wx:if="{{showAddModal}}">
+    <view class="modal-header">
+      <text class="modal-title">添加任务</text>
+      <text class="modal-close" bindtap="closeAddModal">×</text>
+    </view>
+    
+    <view class="modal-body">
+      <view class="form-group">
+        <text class="form-label">任务名称 *</text>
+        <input 
+          type="text" 
+          placeholder="请输入任务名称" 
+          value="{{newTask.title}}"
+          bindinput="inputTaskInfo"
+          data-field="title"
+          class="form-input" 
+        />
+      </view>
+      
+      <view class="form-group">
+        <text class="form-label">奖励金额 *</text>
+        <input 
+          type="digit" 
+          placeholder="0.00" 
+          value="{{newTask.reward}}"
+          bindinput="inputTaskInfo"
+          data-field="reward"
+          class="form-input" 
+        />
+      </view>
+      
+      <view class="form-group">
+        <text class="form-label">任务描述</text>
+        <textarea 
+          placeholder="请输入任务描述" 
+          value="{{newTask.description}}"
+          bindinput="inputTaskInfo"
+          data-field="description"
+          class="form-textarea" 
+          auto-height
+        ></textarea>
+      </view>
+      
+      <view class="form-group">
+        <text class="form-label">截止日期 *</text>
+        <input 
+          type="date" 
+          value="{{newTask.deadline}}"
+          bindinput="inputTaskInfo"
+          data-field="deadline"
+          class="form-input" 
+        />
+      </view>
+    </view>
+    
+    <view class="modal-footer">
+      <button class="btn-cancel" bindtap="closeAddModal">取消</button>
+      <button class="btn-confirm" type="primary" bindtap="addTask">确定</button>
+    </view>
+  </view>
+</view>

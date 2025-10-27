@@ -1,0 +1,103 @@
+<!--add.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="page-title">{{editingId ? '编辑记录' : '添加记录'}}</text>
+    <text class="child-info">{{currentChild?.name || '未选择'}}</text>
+  </view>
+
+  <!-- 交易类型选择 -->
+  <view class="section">
+    <view class="section-title">交易类型</view>
+    <view class="type-select">
+      <view 
+        class="type-item {{transaction.type === 'expense' ? 'active' : ''}}" 
+        bindtap="switchTransactionType" 
+        data-type="expense"
+      >
+        <text class="type-icon">-</text>
+        <text class="type-text">支出</text>
+      </view>
+      <view 
+        class="type-item {{transaction.type === 'income' ? 'active' : ''}}" 
+        bindtap="switchTransactionType" 
+        data-type="income"
+      >
+        <text class="type-icon">+</text>
+        <text class="type-text">收入</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="section">
+    <view class="section-title">金额</view>
+    <view class="amount-input">
+      <text class="currency-symbol">¥</text>
+      <input 
+        type="digit" 
+        placeholder="0.00" 
+        value="{{transaction.amount}}" 
+        bindinput="inputAmount"
+        class="amount" 
+      />
+    </view>
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="section">
+    <view class="section-title">分类</view>
+    <view class="category-grid">
+      <view 
+        class="category-item {{transaction.category === item.id ? 'active' : ''}}" 
+        wx:for="{{categories[transaction.type]}}" 
+        wx:key="id" 
+        bindtap="selectCategory"
+        data-category="{{item.id}}"
+      >
+        <view class="category-icon">
+          <text>{{item.id === 'pocket_money' ? '💰' : 
+                  item.id === 'reward' ? '🏆' : 
+                  item.id === 'gift' ? '🎁' : 
+                  item.id === 'food' ? '🍔' : 
+                  item.id === 'entertainment' ? '🎮' : 
+                  item.id === 'shopping' ? '🛍️' : 
+                  item.id === 'study' ? '📚' : 
+                  '📦'}}
+          </text>
+        </view>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 描述输入 -->
+  <view class="section">
+    <view class="section-title">描述</view>
+    <input 
+      type="text" 
+      placeholder="请输入详细描述" 
+      value="{{transaction.description}}" 
+      bindinput="inputDescription"
+      class="description-input" 
+    />
+  </view>
+
+  <!-- 日期时间选择 -->
+  <view class="section">
+    <view class="section-title">日期时间</view>
+    <input 
+      type="datetime-local" 
+      value="{{transaction.date}}" 
+      bindinput="selectDateTime"
+      class="datetime-input" 
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn-cancel" type="default" bindtap="cancel">取消</button>
+    <button class="btn-save" type="primary" bindtap="saveTransaction" loading="{{loading}}" disabled="{{loading}}">
+      {{loading ? '保存中...' : '保存'}}
+    </button>
+  </view>
+</view>

@@ -1,0 +1,188 @@
+/* list.wxss */
+.container {
+  padding-bottom: 80px;
+  background-color: #f5f5f5;
+}
+
+/* 儿童信息栏 */
+.child-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.child-info {
+  flex: 1;
+}
+
+.child-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.child-balance {
+  font-size: 14px;
+  color: #666;
+}
+
+.switch-arrow {
+  font-size: 20px;
+  color: #999;
+}
+
+/* 过滤器区域 */
+.filter-bar {
+  background-color: white;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.filter-group {
+  display: flex;
+  margin-bottom: 12px;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-item {
+  padding: 6px 16px;
+  background-color: #f5f5f5;
+  border-radius: 16px;
+  font-size: 13px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.filter-item.active {
+  background-color: #4A90E2;
+  color: white;
+}
+
+.filter-action {
+  text-align: center;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 8px;
+}
+
+.reset-btn {
+  font-size: 13px;
+  color: #4A90E2;
+}
+
+/* 交易记录列表 */
+.transaction-list {
+  /* 交易列表容器 */
+}
+
+.transaction-item {
+  background-color: white;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-content {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+
+.transaction-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.transaction-icon.income {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.transaction-icon.expense {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+}
+
+.transaction-info {
+  flex: 1;
+}
+
+.transaction-desc {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.transaction-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #999;
+}
+
+.transaction-amount {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.transaction-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 8px 16px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #f0f0f0;
+}
+
+.action-btn {
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+.action-btn.edit {
+  color: #4A90E2;
+}
+
+.action-btn.delete {
+  color: #ff4d4f;
+}
+
+/* 添加按钮 */
+.add-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #4A90E2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 4px 16px rgba(74, 144, 226, 0.4);
+}
+
+.add-btn:active {
+  background-color: #3A80D2;
+}

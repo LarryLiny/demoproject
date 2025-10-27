@@ -1,0 +1,40 @@
+<!--login.wxml-->
+<view class="login-container">
+  <view class="logo-section">
+    <view class="app-logo">💰</view>
+    <view class="app-name">儿童记账</view>
+    <view class="app-slogan">培养财商，从小做起</view>
+  </view>
+
+  <view class="login-section">
+    <button 
+      class="login-btn" 
+      type="primary" 
+      open-type="getUserInfo" 
+      bindgetuserinfo="getUserInfo"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+    >
+      {{loading ? '登录中...' : '微信授权登录'}}
+    </button>
+    
+    <button 
+      class="guest-btn" 
+      type="default" 
+      bindtap="guestLogin"
+      disabled="{{loading}}"
+    >
+      游客模式（演示用）
+    </button>
+  </view>
+
+  <view class="tips-section">
+    <view class="tip-title">使用提示</view>
+    <view class="tip-content">
+      <text>• 本小程序帮助家长记录孩子的零花钱收支</text>
+      <text>• 通过货币化奖惩方式培养儿童财商意识</text>
+      <text>• 支持多子女管理，自定义收支分类</text>
+      <text>• 提供统计分析和任务奖励功能</text>
+    </view>
+  </view>
+</view>

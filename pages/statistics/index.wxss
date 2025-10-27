@@ -1,0 +1,266 @@
+/* index.wxss */
+.container {
+  padding: 16px;
+  background-color: #f5f5f5;
+  padding-bottom: 40px;
+}
+
+/* 儿童信息区域 */
+.child-section {
+  margin-bottom: 20px;
+}
+
+.child-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.child-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.switch-icon {
+  font-size: 14px;
+  color: #999;
+}
+
+/* 统计卡片 */
+.stats-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat-card {
+  flex: 1;
+  background-color: white;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card.highlight {
+  background: linear-gradient(135deg, #4A90E2 0%, #3A80D2 100%);
+  color: white;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.stat-card.highlight .stat-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-value.income {
+  color: #52c41a;
+}
+
+.stat-value.expense {
+  color: #ff4d4f;
+}
+
+.stat-value.balance {
+  color: white;
+}
+
+/* 时间范围选择 */
+.time-range {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.range-item {
+  font-size: 14px;
+  color: #666;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.range-item.active {
+  background-color: #4A90E2;
+  color: white;
+  font-weight: 500;
+}
+
+/* 图表区域 */
+.chart-section {
+  background-color: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.chart-container {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 加载状态 */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+}
+
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #4A90E2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 无数据状态 */
+.no-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.no-data-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.no-data-text {
+  font-size: 14px;
+  color: #999;
+}
+
+/* 分类列表 */
+.category-list {
+  margin-top: 16px;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-left {
+  display: flex;
+  align-items: center;
+}
+
+.category-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+
+.category-name {
+  font-size: 14px;
+  color: #666;
+}
+
+.category-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.btn-text {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 适配不同屏幕尺寸 */
+@media (max-width: 320px) {
+  .stat-value {
+    font-size: 18px;
+  }
+  
+  .chart-width {
+    width: 280px;
+  }
+}

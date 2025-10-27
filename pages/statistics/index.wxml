@@ -1,0 +1,104 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 儿童信息和切换 -->
+  <view class="child-section">
+    <view class="child-info" bindtap="switchChild">
+      <text class="child-name">{{currentChild?.name || '未选择'}}</text>
+      <text class="switch-icon">▶</text>
+    </view>
+    
+    <!-- 统计卡片 -->
+    <view class="stats-cards">
+      <view class="stat-card">
+        <text class="stat-label">收入</text>
+        <text class="stat-value income">¥{{statistics.income}}</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-label">支出</text>
+        <text class="stat-value expense">¥{{statistics.expense}}</text>
+      </view>
+      <view class="stat-card highlight">
+        <text class="stat-label">余额</text>
+        <text class="stat-value balance">¥{{statistics.balance}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 时间范围选择 -->
+  <view class="time-range">
+    <text 
+      class="range-item {{timeRange === 'day' ? 'active' : ''}}" 
+      bindtap="changeTimeRange"
+      data-range="day"
+    >
+      日
+    </text>
+    <text 
+      class="range-item {{timeRange === 'week' ? 'active' : ''}}" 
+      bindtap="changeTimeRange"
+      data-range="week"
+    >
+      周
+    </text>
+    <text 
+      class="range-item {{timeRange === 'month' ? 'active' : ''}}" 
+      bindtap="changeTimeRange"
+      data-range="month"
+    >
+      月
+    </text>
+    <text 
+      class="range-item {{timeRange === 'year' ? 'active' : ''}}" 
+      bindtap="changeTimeRange"
+      data-range="year"
+    >
+      年
+    </text>
+  </view>
+
+  <!-- 图表区域 -->
+  <view class="chart-section">
+    <view class="section-title">支出分类统计</view>
+    <view class="chart-container">
+      <canvas 
+        canvas-id="categoryChart" 
+        style="width: {{chartWidth}}px; height: {{chartHeight}}px;" 
+      ></canvas>
+      
+      <!-- 加载状态 -->
+      <view wx:if="{{loading}}" class="loading-overlay">
+        <view class="loading-spinner"></view>
+        <text class="loading-text">加载中...</text>
+      </view>
+      
+      <!-- 无数据状态 -->
+      <view wx:elif="{{categoryData.length === 0}}" class="no-data">
+        <text class="no-data-icon">📊</text>
+        <text class="no-data-text">暂无统计数据</text>
+      </view>
+    </view>
+    
+    <!-- 分类列表 -->
+    <view class="category-list">
+      <view class="category-item" wx:for="{{categoryData}}" wx:key="index">
+        <view class="category-left">
+          <view class="category-color" style="background-color: {{item.color}}"></view>
+          <text class="category-name">{{item.name}}</text>
+        </view>
+        <text class="category-value">¥{{item.value}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="action-btn" bindtap="viewDetailedReport">
+      <text class="btn-icon">📋</text>
+      <text class="btn-text">详细报表</text>
+    </button>
+    <button class="action-btn" bindtap="exportData">
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">导出数据</text>
+    </button>
+  </view>
+</view>

@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/auth/login",
+    "pages/child/manage",
+    "pages/transaction/list",
+    "pages/transaction/add",
+    "pages/statistics/index",
+    "pages/task/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4A90E2",
+    "navigationBarTitleText": "儿童记账",
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "default"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4A90E2",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/transaction/list",
+        "text": "记账"
+      },
+      {
+        "pagePath": "pages/statistics/index",
+        "text": "统计"
+      },
+      {
+        "pagePath": "pages/task/index",
+        "text": "任务"
+      }
+    ]
+  },
+  "renderer": "webview",
+  "sitemapLocation": "sitemap.json"
+}

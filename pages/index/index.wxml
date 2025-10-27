@@ -1,0 +1,79 @@
+<!--index.wxml-->
+<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <!-- 儿童信息与余额卡片 -->
+    <view class="card balance-card">
+      <view class="child-info" bindtap="onSwitchChild">
+        <view class="child-avatar">{{currentChild?.name?.charAt(0) || '?'}}</view>
+        <view class="child-details">
+          <view class="child-name">{{currentChild?.name || '未选择'}}</view>
+          <view class="child-age">{{currentChild?.age || '--'}}岁 | {{currentChild?.gender === 'male' ? '男' : '女'}}</view>
+        </view>
+        <view class="switch-icon">
+          <text class="iconfont icon-right"></text>
+        </view>
+      </view>
+      <view class="balance-section">
+        <view class="balance-label">当前余额</view>
+        <view class="balance-amount">¥{{currentChild?.balance?.toFixed(2) || '0.00'}}</view>
+      </view>
+    </view>
+
+    <!-- 快捷操作按钮 -->
+    <view class="quick-actions">
+      <view class="action-btn" bindtap="onAddTransaction">
+        <view class="action-icon add">
+          <text>+</text>
+        </view>
+        <view class="action-text">记一笔</view>
+      </view>
+      <view class="action-btn" bindtap="onViewStatistics">
+        <view class="action-icon stats">
+          <text>📊</text>
+        </view>
+        <view class="action-text">统计</view>
+      </view>
+      <view class="action-btn" bindtap="onViewTasks">
+        <view class="action-icon task">
+          <text>✅</text>
+        </view>
+        <view class="action-text">任务</view>
+      </view>
+    </view>
+
+    <!-- 最近交易记录 -->
+    <view class="recent-section">
+      <view class="section-header">
+        <text class="section-title">最近记录</text>
+        <text class="view-all" bindtap="onViewAllTransactions">查看全部</text>
+      </view>
+      
+      <view class="transaction-list">
+        <block wx:if="{{recentTransactions.length > 0}}">
+          <view class="transaction-item" wx:for="{{recentTransactions}}" wx:key="id">
+            <view class="transaction-icon {{item.type}}">
+              <text>{{item.type === 'income' ? '+' : '-'}}</text>
+            </view>
+            <view class="transaction-info">
+              <view class="transaction-desc">{{item.description}}</view>
+              <view class="transaction-meta">
+                <text class="transaction-category">{{item.categoryName}}</text>
+                <text class="transaction-date">{{item.date}}</text>
+              </view>
+            </view>
+            <view class="transaction-amount {{item.type === 'income' ? 'income-amount' : 'expense-amount'}}">
+              {{item.type === 'income' ? '+' : '-'}}¥{{item.amount}}
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="empty-state">
+            <view class="empty-state-icon">📝</view>
+            <view class="empty-state-text">暂无交易记录</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</scroll-view>

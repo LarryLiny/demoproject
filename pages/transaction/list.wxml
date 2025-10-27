@@ -1,0 +1,75 @@
+<!--list.wxml-->
+<view class="container">
+  <!-- 儿童信息栏 -->
+  <view class="child-bar" bindtap="switchChild">
+    <view class="child-info">
+      <text class="child-name">{{currentChild?.name || '未选择'}}</text>
+      <text class="child-balance">余额: ¥{{currentChild?.balance?.toFixed(2) || '0.00'}}</text>
+    </view>
+    <view class="switch-arrow">›</view>
+  </view>
+
+  <!-- 过滤器区域 -->
+  <view class="filter-bar">
+    <view class="filter-group">
+      <view class="filter-item {{filter.type === 'all' ? 'active' : ''}}" bindtap="changeTypeFilter" data-type="all">全部</view>
+      <view class="filter-item {{filter.type === 'income' ? 'active' : ''}}" bindtap="changeTypeFilter" data-type="income">收入</view>
+      <view class="filter-item {{filter.type === 'expense' ? 'active' : ''}}" bindtap="changeTypeFilter" data-type="expense">支出</view>
+    </view>
+    <view class="filter-group">
+      <view class="filter-item {{filter.dateRange === 'all' ? 'active' : ''}}" bindtap="changeDateFilter" data-range="all">全部</view>
+      <view class="filter-item {{filter.dateRange === 'today' ? 'active' : ''}}" bindtap="changeDateFilter" data-range="today">今天</view>
+      <view class="filter-item {{filter.dateRange === 'week' ? 'active' : ''}}" bindtap="changeDateFilter" data-range="week">本周</view>
+      <view class="filter-item {{filter.dateRange === 'month' ? 'active' : ''}}" bindtap="changeDateFilter" data-range="month">本月</view>
+    </view>
+    <view class="filter-action">
+      <text class="reset-btn" bindtap="resetFilter">重置</text>
+    </view>
+  </view>
+
+  <!-- 交易记录列表 -->
+  <view class="transaction-list">
+    <block wx:if="{{loading}}">
+      <view class="loading">
+        <text>加载中...</text>
+      </view>
+    </block>
+    <block wx:else>
+      <block wx:if="{{transactions.length > 0}}">
+        <view class="transaction-item" wx:for="{{transactions}}" wx:key="id">
+          <view class="transaction-content" bindtap="viewTransactionDetail" data-id="{{item.id}}">
+            <view class="transaction-icon {{item.type}}">
+              <text>{{item.type === 'income' ? '+' : '-'}}</text>
+            </view>
+            <view class="transaction-info">
+              <view class="transaction-desc">{{item.description}}</view>
+              <view class="transaction-meta">
+                <text class="transaction-category">{{item.categoryName}}</text>
+                <text class="transaction-date">{{item.date}}</text>
+              </view>
+            </view>
+            <view class="transaction-amount {{item.type === 'income' ? 'income-amount' : 'expense-amount'}}">
+              {{item.type === 'income' ? '+' : '-'}}¥{{item.amount}}
+            </view>
+          </view>
+          <view class="transaction-actions">
+            <text class="action-btn edit" bindtap="editTransaction" data-id="{{item.id}}">编辑</text>
+            <text class="action-btn delete" bindtap="deleteTransaction" data-id="{{item.id}}">删除</text>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="empty-state">
+          <view class="empty-state-icon">📋</view>
+          <view class="empty-state-text">暂无交易记录</view>
+          <view class="empty-state-desc">点击右下角按钮添加第一条记录</view>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-btn" bindtap="addTransaction">
+    <text>+</text>
+  </view>
+</view>
